@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\{AccountController, RegisterController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function() {
+    // should be authenticated
+    Route::get('accounts', [AccountController::class, 'index']);
+    Route::post('register', [RegisterController::class, 'register']);
 });

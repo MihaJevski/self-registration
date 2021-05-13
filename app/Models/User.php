@@ -2,14 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
+/**
+ * Class User
+ *
+ * @property integer $id
+ * @property integer $client_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property string $phone
+ * @property string $profile_uri
+ * @property Carbon $last_password_reset
+ * @property string $status
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
+ *
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
+    // User statuses
+    const ACTIVE = 'Active';
+    const INACTIVE = 'Inactive';
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +41,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'client_id',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'phone',
+        'profile_uri',
+        'last_password_reset',
+        'status',
     ];
 
     /**
@@ -29,7 +59,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -38,6 +67,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 }
