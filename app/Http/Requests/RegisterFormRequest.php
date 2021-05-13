@@ -32,13 +32,13 @@ class RegisterFormRequest extends FormRequest
             'country' => 'required|string|max:100',
             'zipCode' => 'required|string|max:20',
             'phoneNo1' => 'required|string|max:20',
-            'phoneNo2' => 'required|string|max:20',
+            'phoneNo2' => 'string|max:20',
             'user' => 'required|array',
             'user.firstName' => 'required|string|max:50',
             'user.lastName' => 'required|string|max:50',
             'user.email' => 'required|email|unique:users,email|max:150',
-            'user.password' => 'required|min:8|max:256',
-            'user.passwordConfirmation' => 'required|same:user.password|min:8|max:256',
+            'user.password' => 'required|min:8|max:20',
+            'user.passwordConfirmation' => 'same:user.password',
             'user.phone' => 'required|string|max:20',
         ];
     }
